@@ -200,9 +200,9 @@ class _GRAYSCALE extends ColorSpaceType {
 
   const _GRAYSCALE() : super(1);
 
-  Image convertTensorBufferToImage(TensorBuffer buffer) {
-    return ImageConversions.convertGrayscaleTensorBufferToImage(buffer);
-  }
+  // Image convertTensorBufferToImage(TensorBuffer buffer) {
+  //   return ImageConversions.convertGrayscaleTensorBufferToImage(buffer);
+  // }
 
   int getChannelValue() {
     return CHANNEL_VALUE;

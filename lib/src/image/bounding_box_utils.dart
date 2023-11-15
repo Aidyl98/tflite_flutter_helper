@@ -71,11 +71,11 @@ class BoundingBoxUtils {
     if (boundingBoxAxis < 0) {
       boundingBoxAxis = shape.length + boundingBoxAxis;
     }
-    SupportPreconditions.checkArgument(
-      shape[boundingBoxAxis] == 4,
-      errorMessage:
-          "Size of bounding box dimBouBoxension $boundingBoxAxis is not 4. Got ${shape[boundingBoxAxis]} in shape $shape",
-    );
+    // SupportPreconditions.checkArgument(
+    //   shape[boundingBoxAxis] == 4,
+    //   errorMessage:
+    //       "Size of bounding box dimBouBoxension $boundingBoxAxis is not 4. Got ${shape[boundingBoxAxis]} in shape $shape",
+    // );
     SupportPreconditions.checkArgument(
       valueIndex.length == 4,
       errorMessage:
@@ -101,16 +101,18 @@ class BoundingBoxUtils {
 
     List<Rect> boundingBoxList = [];
 
-    List<double> values = List.filled(4, 0);
+    List<double> values = List.filled(5, 0);
     List<double> doubleList = tensor.getDoubleList();
 
     for (int i = 0; i < a; i++) {
       for (int j = 0; j < b; j++) {
-        for (int k = 0; k < 4; k++) {
-          values[k] = doubleList.elementAt((i * 4 + k) * b + j);
+        for (int k = 0; k < 5; k++) {
+          values[k] = doubleList.elementAt((i * 5 + k) * b + j);
         }
-        boundingBoxList.add(_convertOneBoundingBox(values, boundingBoxType,
-            coordinateType, height, width, valueIndex));
+        if (values[4] > 0.8) {
+          boundingBoxList.add(_convertOneBoundingBox(values.sublist(0, 4),
+              boundingBoxType, coordinateType, height, width, valueIndex));
+        }
       }
     }
 
